@@ -7,6 +7,7 @@ public class NameInverterTest {
     @Test
     public void nameInverter() {
         assertThat(invert(null), Is.is(""));
+        assertThat(invert(""), Is.is(""));
     }
 
     private String invert(String name) {
