@@ -8,6 +8,10 @@ public class NameInverterTest {
     @Test
     public void nameInverter()
     {
-        assertThat("", Is.is(""));
+        assertThat(invert(null), Is.is(""));
+    }
+
+    private String invert(String name) {
+        return null;
     }
 }
