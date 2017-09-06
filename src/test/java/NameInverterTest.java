@@ -1,17 +1,15 @@
 import org.hamcrest.core.Is;
-import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class NameInverterTest {
     @Test
-    public void nameInverter()
-    {
+    public void nameInverter() {
         assertThat(invert(null), Is.is(""));
     }
 
     private String invert(String name) {
-        return null;
+        return "";
     }
 }
