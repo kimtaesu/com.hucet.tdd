@@ -8,9 +8,13 @@ public class NameInverterTest {
     public void nameInverter() {
         assertThat(invert(null), Is.is(""));
         assertThat(invert(""), Is.is(""));
+        assertThat(invert("name"), Is.is("name"));
     }
 
     private String invert(String name) {
-        return "";
+        if (name == null || name.isEmpty())
+            return "";
+        else
+            return name;
     }
 }
