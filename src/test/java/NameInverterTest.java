@@ -9,12 +9,19 @@ public class NameInverterTest {
         assertThat(invert(null), Is.is(""));
         assertThat(invert(""), Is.is(""));
         assertThat(invert("name"), Is.is("name"));
+        assertThat(invert("first last"), Is.is("last, first"));
     }
 
     private String invert(String name) {
         if (name == null || name.isEmpty())
             return "";
-        else
-            return name;
+        else {
+            String[] names = name.split(" ");
+            if (names.length == 2)
+                return String.format("%s, %s", names[1], names[0]);
+            else
+                return name;
+
+        }
     }
 }
