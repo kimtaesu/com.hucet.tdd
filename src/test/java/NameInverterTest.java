@@ -40,13 +40,18 @@ public class NameInverterTest {
         if (names.size() == 1) {
             return names.get(0);
         }
+        String postNominal = getPostNominal(names);
+        return String.format("%s, %s %s", names.get(1), names.get(0), postNominal).trim();
+    }
+
+    private String getPostNominal(List<String> names) {
         String postNominal = "";
         List<String> postNominals = new ArrayList<>();
         if (names.size() > 2) {
             postNominals = names.subList(2, names.size());
         }
         postNominal = Joiner.on(" ").join(postNominals);
-        return String.format("%s, %s %s", names.get(1), names.get(0), postNominal).trim();
+        return postNominal;
     }
 
     private void removeHonorific(List<String> names) {
