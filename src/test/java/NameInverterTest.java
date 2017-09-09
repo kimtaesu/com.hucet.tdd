@@ -1,13 +1,11 @@
 import com.google.common.base.Joiner;
-import javafx.beans.binding.ObjectBinding;
-import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.core.Is.*;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class NameInverterTest {
@@ -40,15 +38,16 @@ public class NameInverterTest {
         if (names.size() == 1) {
             return names.get(0);
         }
-        String postNominal = getPostNominal(names);
+        String postNominal = "";
+        if (names.size() > 2) {
+            postNominal = getPostNominal(names);
+        }
         return String.format("%s, %s %s", names.get(1), names.get(0), postNominal).trim();
     }
 
     private String getPostNominal(List<String> names) {
         List<String> postNominals = new ArrayList<>();
-        if (names.size() > 2) {
-            postNominals = names.subList(2, names.size());
-        }
+        postNominals = names.subList(2, names.size());
         return Joiner.on(" ").join(postNominals);
     }
 
