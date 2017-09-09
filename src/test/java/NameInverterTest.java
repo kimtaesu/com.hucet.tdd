@@ -7,22 +7,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.assertThat;
 
 public class NameInverterTest {
     @Test
     public void nameInverter() {
-        assertThat(invert(null), Is.is(""));
-        assertThat(invert(""), Is.is(""));
-        assertThat(invert("name"), Is.is("name"));
-        assertThat(invert("first last"), Is.is("last, first"));
-        assertThat(invert("      name     "), Is.is("name"));
-        assertThat(invert("first      last"), Is.is("last, first"));
-        assertThat(invert("Mr. first last"), Is.is("last, first"));
-        assertThat(invert("Mrs. first last"), Is.is("last, first"));
-        assertThat(invert("first last SR."), Is.is("last, first SR."));
-        assertThat(invert("first last BS. Phd."), Is.is("last, first BS. Phd."));
-        assertThat(invert("    Rober Martin 11 esq."), Is.is("Martin, Rober 11 esq."));
+        assertThat(invert(null), is(""));
+        assertThat(invert(""), is(""));
+        assertThat(invert("name"), is("name"));
+        assertThat(invert("first last"), is("last, first"));
+        assertThat(invert("      name     "), is("name"));
+        assertThat(invert("first      last"), is("last, first"));
+        assertThat(invert("Mr. first last"), is("last, first"));
+        assertThat(invert("Mrs. first last"), is("last, first"));
+        assertThat(invert("first last SR."), is("last, first SR."));
+        assertThat(invert("first last BS. Phd."), is("last, first BS. Phd."));
+        assertThat(invert("    Rober Martin 11 esq."), is("Martin, Rober 11 esq."));
     }
 
     private String invert(String name) {
@@ -31,17 +32,21 @@ public class NameInverterTest {
         else {
             List<String> names = splitNames(name);
             removeHonorific(names);
-            if (names.size() == 1) {
-                return names.get(0);
-            }
-            String postNominal = "";
-            List<String> postNominals = new ArrayList<>();
-            if (names.size() > 2) {
-                postNominals = names.subList(2, names.size());
-            }
-            postNominal = Joiner.on(" ").join(postNominals);
-            return String.format("%s, %s %s", names.get(1), names.get(0), postNominal).trim();
+            return formatName(names);
         }
+    }
+
+    private String formatName(List<String> names) {
+        if (names.size() == 1) {
+            return names.get(0);
+        }
+        String postNominal = "";
+        List<String> postNominals = new ArrayList<>();
+        if (names.size() > 2) {
+            postNominals = names.subList(2, names.size());
+        }
+        postNominal = Joiner.on(" ").join(postNominals);
+        return String.format("%s, %s %s", names.get(1), names.get(0), postNominal).trim();
     }
 
     private void removeHonorific(List<String> names) {
