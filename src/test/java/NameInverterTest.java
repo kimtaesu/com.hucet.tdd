@@ -1,3 +1,4 @@
+import javafx.beans.binding.ObjectBinding;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 
@@ -25,13 +26,17 @@ public class NameInverterTest {
             return "";
         else {
             List<String> names = splitNames(name);
-            if (names.size() > 1 && isHonoritic(names))
-                names.remove(0);
-            if (names.size() == 2)
-                return String.format("%s, %s", names.get(1), names.get(0));
-            else
+            removeHonorific(names);
+            if (names.size() == 1)
                 return names.get(0);
+            return String.format("%s, %s", names.get(1), names.get(0));
+
         }
+    }
+
+    private void removeHonorific(List<String> names) {
+        if (names.size() > 1 && isHonoritic(names))
+            names.remove(0);
     }
 
     private List<String> splitNames(String name) {
@@ -39,6 +44,6 @@ public class NameInverterTest {
     }
 
     private boolean isHonoritic(List<String> names) {
-        return names.get(0).equals("Mr.") || names.get(0).equals("Mrs.");
+        return names.get(0).matches("Mr\\.|Mrs\\.");
     }
 }
