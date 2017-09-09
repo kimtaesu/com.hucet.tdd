@@ -9,6 +9,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class NameInverterTest {
+
+    private NameInvertor nameInvertor;
+
     @Test
     public void nameInverter() {
         assertThat(invert(null), is(""));
@@ -25,15 +28,12 @@ public class NameInverterTest {
     }
 
     private String invert(String name) {
-        return new NameInvertor(name).invoke();
+        nameInvertor = new NameInvertor();
+        return nameInvertor.invert(name);
     }
 
     private class NameInvertor {
 
-        private String name;
-        public NameInvertor(String name) {
-            this.name = name;
-        }
 
         private String formatMultiElementName(List<String> names) {
             String postNominal = "";
@@ -51,7 +51,7 @@ public class NameInverterTest {
             return names.get(0).matches("Mr\\.|Mrs\\.");
         }
 
-        public String invoke() {
+        public String invert(String name) {
             if (name == null || name.isEmpty())
                 return "";
             else
