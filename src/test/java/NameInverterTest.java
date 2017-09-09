@@ -1,3 +1,4 @@
+import com.google.common.base.Joiner;
 import javafx.beans.binding.ObjectBinding;
 import org.hamcrest.core.Is;
 import org.junit.Test;
@@ -20,6 +21,7 @@ public class NameInverterTest {
         assertThat(invert("Mr. first last"), Is.is("last, first"));
         assertThat(invert("Mrs. first last"), Is.is("last, first"));
         assertThat(invert("first last SR."), Is.is("last, first SR."));
+        assertThat(invert("first last BS. Phd."), Is.is("last, first BS. Phd."));
     }
 
     private String invert(String name) {
@@ -31,12 +33,13 @@ public class NameInverterTest {
             if (names.size() == 1) {
                 return names.get(0);
             }
-            String postNominal =  "";
-            if (names.size() == 3) {
-                postNominal = names.get(2);
+            String postNominal = "";
+            List<String> postNominals = new ArrayList<>();
+            if (names.size() > 2) {
+                postNominals = names.subList(2, names.size());
             }
+            postNominal = Joiner.on(" ").join(postNominals);
             return String.format("%s, %s %s", names.get(1), names.get(0), postNominal).trim();
-
         }
     }
 
