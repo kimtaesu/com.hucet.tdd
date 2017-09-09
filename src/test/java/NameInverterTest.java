@@ -17,19 +17,28 @@ public class NameInverterTest {
         assertThat(invert("      name     "), Is.is("name"));
         assertThat(invert("first      last"), Is.is("last, first"));
         assertThat(invert("Mr. first last"), Is.is("last, first"));
+        assertThat(invert("Mrs. first last"), Is.is("last, first"));
     }
 
     private String invert(String name) {
         if (name == null || name.isEmpty())
             return "";
         else {
-            List<String> names = new ArrayList<>(Arrays.asList(name.trim().split("\\s+")));
-            if (names.size() > 1&& names.get(0).equals("Mr."))
+            List<String> names = splitNames(name);
+            if (names.size() > 1 && isHonoritic(names))
                 names.remove(0);
             if (names.size() == 2)
                 return String.format("%s, %s", names.get(1), names.get(0));
             else
                 return names.get(0);
         }
+    }
+
+    private List<String> splitNames(String name) {
+        return new ArrayList<>(Arrays.asList(name.trim().split("\\s+")));
+    }
+
+    private boolean isHonoritic(List<String> names) {
+        return names.get(0).equals("Mr.") || names.get(0).equals("Mrs.");
     }
 }
