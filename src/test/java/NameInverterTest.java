@@ -10,29 +10,24 @@ import static org.junit.Assert.assertThat;
 
 public class NameInverterTest {
 
-    private NameInvertor nameInvertor;
+    private NameInverter nameInvertor = new NameInverter();
 
     @Test
     public void nameInverter() {
-        assertThat(invert(null), is(""));
-        assertThat(invert(""), is(""));
-        assertThat(invert("name"), is("name"));
-        assertThat(invert("first last"), is("last, first"));
-        assertThat(invert("      name     "), is("name"));
-        assertThat(invert("first      last"), is("last, first"));
-        assertThat(invert("Mr. first last"), is("last, first"));
-        assertThat(invert("Mrs. first last"), is("last, first"));
-        assertThat(invert("first last SR."), is("last, first SR."));
-        assertThat(invert("first last BS. Phd."), is("last, first BS. Phd."));
-        assertThat(invert("    Rober Martin 11 esq."), is("Martin, Rober 11 esq."));
+        assertThat(nameInvertor.invert(null), is(""));
+        assertThat(nameInvertor.invert(""), is(""));
+        assertThat(nameInvertor.invert("name"), is("name"));
+        assertThat(nameInvertor.invert("first last"), is("last, first"));
+        assertThat(nameInvertor.invert("      name     "), is("name"));
+        assertThat(nameInvertor.invert("first      last"), is("last, first"));
+        assertThat(nameInvertor.invert("Mr. first last"), is("last, first"));
+        assertThat(nameInvertor.invert("Mrs. first last"), is("last, first"));
+        assertThat(nameInvertor.invert("first last SR."), is("last, first SR."));
+        assertThat(nameInvertor.invert("first last BS. Phd."), is("last, first BS. Phd."));
+        assertThat(nameInvertor.invert("    Rober Martin 11 esq."), is("Martin, Rober 11 esq."));
     }
 
-    private String invert(String name) {
-        nameInvertor = new NameInvertor();
-        return nameInvertor.invert(name);
-    }
-
-    private class NameInvertor {
+    private class NameInverter {
 
 
         private String formatMultiElementName(List<String> names) {
