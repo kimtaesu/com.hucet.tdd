@@ -19,6 +19,7 @@ public class NameInverterTest {
         assertThat(invert("first      last"), Is.is("last, first"));
         assertThat(invert("Mr. first last"), Is.is("last, first"));
         assertThat(invert("Mrs. first last"), Is.is("last, first"));
+        assertThat(invert("first last SR."), Is.is("last, first SR."));
     }
 
     private String invert(String name) {
@@ -27,9 +28,14 @@ public class NameInverterTest {
         else {
             List<String> names = splitNames(name);
             removeHonorific(names);
-            if (names.size() == 1)
+            if (names.size() == 1) {
                 return names.get(0);
-            return String.format("%s, %s", names.get(1), names.get(0));
+            }
+            String postNominal =  "";
+            if (names.size() == 3) {
+                postNominal = names.get(2);
+            }
+            return String.format("%s, %s %s", names.get(1), names.get(0), postNominal).trim();
 
         }
     }
