@@ -22,6 +22,7 @@ public class NameInverterTest {
         assertThat(invert("Mrs. first last"), Is.is("last, first"));
         assertThat(invert("first last SR."), Is.is("last, first SR."));
         assertThat(invert("first last BS. Phd."), Is.is("last, first BS. Phd."));
+        assertThat(invert("    Rober Martin 11 esq."), Is.is("Martin, Rober 11 esq."));
     }
 
     private String invert(String name) {
