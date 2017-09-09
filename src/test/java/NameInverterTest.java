@@ -38,6 +38,10 @@ public class NameInverterTest {
         if (names.size() == 1) {
             return names.get(0);
         }
+        return formatMultiElementName(names);
+    }
+
+    private String formatMultiElementName(List<String> names) {
         String postNominal = "";
         if (names.size() > 2) {
             postNominal = getPostNominal(names);
@@ -46,8 +50,7 @@ public class NameInverterTest {
     }
 
     private String getPostNominal(List<String> names) {
-        List<String> postNominals = new ArrayList<>();
-        postNominals = names.subList(2, names.size());
+        List<String> postNominals = names.subList(2, names.size());
         return Joiner.on(" ").join(postNominals);
     }
 
